@@ -1,4 +1,4 @@
-const api = "http://127.0.0.1:8888"
+const api = "https://www.uinav.com"
 
 //请求封装
 function request({
@@ -23,11 +23,10 @@ function request({
 				header
 			}) => {
 				uni.hideLoading()
-				if (data.code == 200) {
-					console.log(data)
+				if (statusCode == 200) {
 					resolve(data)
 				} else {
-					reject(data.msg)
+					reject(data.meta.msg)
 				}
 			},
 			fail: (errot) => {
