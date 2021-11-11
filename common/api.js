@@ -20,3 +20,9 @@ export function getCateList(){
 		url:'/api/public/v1/categories'
 	})
 }
+export function searchGoods(data){
+	return request({
+		url:'/api/public/v1/goods/qsearch',
+		data
+	})
+}

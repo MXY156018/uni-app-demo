@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<my-search @myclick="gotoSearch()"></my-search>
 		<view class="scroll-view-container">
 			<!-- 左侧的滑动区域 -->
 			<scroll-view class="left-scroll-view" scroll-y="true" style="height: 300px;" :style="{height:wh+'px'}">
@@ -63,11 +64,16 @@
 				uni.navigateTo({
 					url:'/subpkg/goods_list/goods_list?cid='+item.cat_id
 				})
+			},
+			gotoSearch(){
+				uni.navigateTo({
+					url:'/subpkg/search/search'
+				})
 			}
 		},
 		onLoad() {
 			const info = uni.getSystemInfoSync()
-			this.wh = info.screenHeight
+			this.wh = info.screenHeight -50
 			this.getCate()
 		}
 	}
