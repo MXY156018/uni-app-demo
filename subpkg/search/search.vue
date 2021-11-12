@@ -92,8 +92,9 @@
 			}
 		},
 		onLoad() {
-			this.historyList = JSON.parse(uni.getStorageSync('kw')) || []
-		}
+			uni.setStorageSync('kw', JSON.stringify(this.historyList))
+			this.historyList = JSON.parse(uni.getStorageSync('kw'))||[];
+		},
 	}
 </script>
 

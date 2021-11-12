@@ -26,3 +26,10 @@ export function searchGoods(data){
 		data
 	})
 }
+
+export function getGoods(data){
+	return request({
+		url:'/api/public/v1/goods/search',
+		data
+	})
+}
