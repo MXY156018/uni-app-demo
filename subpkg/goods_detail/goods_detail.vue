@@ -37,7 +37,15 @@
 	import {
 		getGoodDetailApi
 	} from '../../common/api.js'
+	import {
+		mapState,
+		mapMutations,
+		mapGetters
+	} from 'vuex'
 	export default {
+		computed: {
+			...mapGetters(['total'])
+		},
 		data() {
 			return {
 				goods_info: {},
@@ -49,7 +57,7 @@
 				}, {
 					icon: 'cart',
 					text: '购物车',
-					info: 2
+					info: 0
 				}],
 				buttonGroup: [{
 						text: '加入购物车',
@@ -60,11 +68,12 @@
 						text: '立即购买',
 						backgroundColor: '#ffa200',
 						color: '#fff'
-				 }
+					}
 				]
 			};
 		},
 		methods: {
+			...mapMutations(['addToCart']),
 			getGoodDetail(goods_id) {
 				getGoodDetailApi({
 					goods_id
@@ -81,18 +90,46 @@
 					urls: this.goods_info.pics.map(x => x.pics_big)
 				})
 			},
-			onClick(e){
-				if(e.content.text=='购物车'){
+			onClick(e) {
+				if (e.content.text === '购物车') {
 					uni.switchTab({
-						url:'/pages/cart/cart'
+						url: '/pages/cart/cart'
 					})
 				}
+			},
+			buttonClick(e) {
+				if (e.content.text === '加入购物车') {
+					//组织商品的对象
+					// goods_id, goods_name, goods_price, goods_count, goods_small_logo, goods_state  
+					// goods_info
+					const goods = {
+						goods_id: this.goods_info.goods_id,
+						goods_name: this.goods_info.goods_name,
+						goods_price: this.goods_info.goods_price,
+						goods_count: 1,
+						goods_small_logo: this.goods_info.goods_small_logo,
+						goods_state: true
+					}
+					this.addToCart(goods)
+				}
 			}
-			
+
 		},
 		onLoad(options) {
 			const goods_id = options.goods_id
 			this.getGoodDetail(goods_id)
+
+		},
+		watch: {
+			total: {
+				handler(newVal) {
+					const findResult = this.options.find(x => x.text === '购物车')
+					if (findResult) {
+						findResult.info = newVal
+					}
+				},
+				immediate: true
+			}
 		}
 	}
 </script>
@@ -151,13 +188,15 @@
 			margin: 10px 0;
 		}
 	}
-	.goods_nav{
+
+	.goods_nav {
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		width: 100%;
 	}
-	.goods-detail-container{
+
+	.goods-detail-container {
 		padding-bottom: 50px;
 	}
 </style>
