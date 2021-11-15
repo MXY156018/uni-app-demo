@@ -33,7 +33,9 @@
 	import {
 		getCateList
 	} from '../../common/api.js'
+	import badgeMix from '../../mixins/tarbar-badge.js'
 	export default {
+		mixins:[badgeMix],
 		data() {
 			return {
 				wh: 0,

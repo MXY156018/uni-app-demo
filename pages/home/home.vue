@@ -51,7 +51,9 @@
 		getNavList,
 		getFloorList
 	} from '../../common/api.js'
+	import badgeMix from '../../mixins/tarbar-badge.js'
 	export default {
+		mixins:[badgeMix],
 		data() {
 			return {
 				swiperList: [],
