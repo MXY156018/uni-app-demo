@@ -40,3 +40,36 @@ export function getGoodDetailApi(data) {
 		data
 	})
 }
+
+export function userLogin(data) {
+	return request({
+		url: '/api/public/v1/users/wxlogin',
+		method: "POST",
+		data
+	})
+}
+
+export function createOrder(data,token){
+	return request({
+		url: '/api/public/v1/my/orders/create',
+		method: "POST",
+		data,
+		token
+	})
+}
+export function prePay(data,token){
+	return request({
+		url: '/api/public/v1/my/orders/req_unifiedorder',
+		method: "POST",
+		data,
+		token
+	})
+}
+export function checkOrder(data,token){
+	return request({
+		url: '/api/public/v1/my/orders/chkOrder',
+		method: "POST",
+		data,
+		token
+	})
+}
