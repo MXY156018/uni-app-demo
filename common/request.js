@@ -4,7 +4,8 @@ const api = "https://www.uinav.com"
 function request({
 	url,
 	method,
-	data
+	data,
+	token=''
 }) {
 	return new Promise((resolve, reject) => {
 		uni.showLoading({
@@ -14,7 +15,8 @@ function request({
 			url: api + url,
 			data: data,
 			header: {
-				'content-type': 'application/json'
+				'content-type': 'application/json',
+				'Authorization': token
 			},
 			method: method,
 			success: ({
@@ -35,7 +37,7 @@ function request({
 				reject(errot)
 			},
 			complete() {
-				
+
 			}
 		})
 	}).catch(res => {
